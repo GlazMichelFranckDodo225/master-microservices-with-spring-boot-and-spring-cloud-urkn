@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 // This is a User DAO Service that provides CRUD operations for
 // User entity.
@@ -24,5 +25,18 @@ public class UserDaoService {
     // Find all users
     public List<User> findAll() {
         return users;
+    }
+
+    // Find a user by ID
+    public User findOne(Long id) {
+        // Initialize the predicate to find a user by ID.
+        Predicate<? super User> predicate = user ->
+                user.getId().equals(id);
+
+        // Find and return the first user that matches the predicate.
+        return users.stream()
+                .filter(predicate)
+                .findFirst()
+                .get();
     }
 }
