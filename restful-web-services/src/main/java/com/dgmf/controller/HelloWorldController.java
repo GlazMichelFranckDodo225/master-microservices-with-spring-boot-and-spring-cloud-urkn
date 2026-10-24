@@ -2,6 +2,7 @@ package com.dgmf.controller;
 
 import com.dgmf.entity.HelloWorldBean;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 // This is a simple REST controller that handles HTTP GET requests
@@ -23,5 +24,14 @@ public class HelloWorldController {
         // of the HelloWorldBean class with the message
         // "Hello World Bean!"
         return new HelloWorldBean("Hello World Bean!");
+    }
+
+    // The @GetMapping annotation maps HTTP GET requests
+    // to the helloWorldPathVariable method.
+    @GetMapping(path = "/hello-world-path-variable/{name}")
+    public HelloWorldBean helloWorldPathVariable(
+            @PathVariable String name
+    ) {
+        return new HelloWorldBean(String.format("Hello World, %s", name));
     }
 }
